@@ -21,7 +21,7 @@ from typing import Optional
 from google.genai import types
 
 
-def encode_content(content: types.Content):
+def encode_content(content: types.TextContent):
   """Encodes a content object to a JSON dictionary."""
   encoded_content = content.model_dump(exclude_none=True)
   for p in encoded_content["parts"]:
@@ -34,11 +34,11 @@ def encode_content(content: types.Content):
 
 def decode_content(
     content: Optional[dict[str, Any]],
-) -> Optional[types.Content]:
+) -> Optional[types.TextContent]:
   """Decodes a content object from a JSON dictionary."""
   if not content:
     return None
   for p in content["parts"]:
     if "inline_data" in p:
       p["inline_data"]["data"] = base64.b64decode(p["inline_data"]["data"])
-  return types.Content.model_validate(content)
+  return types.TextContent.model_validate(content)

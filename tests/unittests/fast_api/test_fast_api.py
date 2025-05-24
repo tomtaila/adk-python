@@ -71,7 +71,7 @@ def _event_1():
   return Event(
       author="dummy agent",
       invocation_id="invocation_id",
-      content=types.Content(
+      content=types.TextContent(
           role="model", parts=[types.Part(text="LLM reply", inline_data=None)]
       ),
   )
@@ -81,7 +81,7 @@ def _event_2():
   return Event(
       author="dummy agent",
       invocation_id="invocation_id",
-      content=types.Content(
+      content=types.TextContent(
           role="model",
           parts=[
               types.Part(

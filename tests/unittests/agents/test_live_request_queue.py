@@ -19,7 +19,7 @@ async def test_close_queue():
 
 def test_send_content():
   queue = LiveRequestQueue()
-  content = MagicMock(spec=types.Content)
+  content = MagicMock(spec=types.TextContent)
 
   with patch.object(queue._queue, "put_nowait") as mock_put_nowait:
     queue.send_content(content)
@@ -37,7 +37,7 @@ def test_send_realtime():
 
 def test_send():
   queue = LiveRequestQueue()
-  req = LiveRequest(content=MagicMock(spec=types.Content))
+  req = LiveRequest(content=MagicMock(spec=types.TextContent))
 
   with patch.object(queue._queue, "put_nowait") as mock_put_nowait:
     queue.send(req)
@@ -47,7 +47,7 @@ def test_send():
 @pytest.mark.asyncio
 async def test_get():
   queue = LiveRequestQueue()
-  res = MagicMock(spec=types.Content)
+  res = MagicMock(spec=types.TextContent)
 
   with patch.object(queue._queue, "get", return_value=res) as mock_get:
     result = await queue.get()

@@ -35,7 +35,7 @@ class _TestingAgent(BaseAgent):
     yield Event(
         author=self.name,
         invocation_id=ctx.invocation_id,
-        content=types.Content(
+        content=types.TextContent(
             parts=[types.Part(text=f'Hello, async {self.name}!')]
         ),
     )
@@ -47,7 +47,7 @@ class _TestingAgent(BaseAgent):
     yield Event(
         author=self.name,
         invocation_id=ctx.invocation_id,
-        content=types.Content(
+        content=types.TextContent(
             parts=[types.Part(text=f'Hello, live {self.name}!')]
         ),
     )

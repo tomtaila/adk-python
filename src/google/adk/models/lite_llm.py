@@ -142,9 +142,9 @@ def _safe_json_serialize(obj) -> str:
 
 
 def _content_to_message_param(
-    content: types.Content,
+    content: types.TextContent,
 ) -> Union[Message, list[Message]]:
-  """Converts a types.Content to a litellm Message or list of Messages.
+  """Converts a types.TextContent to a litellm Message or list of Messages.
 
   Handles multipart function responses by returning a list of
   ChatCompletionToolMessage objects if multiple function_response parts exist.
@@ -254,10 +254,10 @@ def _get_content(
 
 
 def _to_litellm_role(role: Optional[str]) -> Literal["user", "assistant"]:
-  """Converts a types.Content role to a litellm role.
+  """Converts a types.TextContent role to a litellm role.
 
   Args:
-    role: The types.Content role.
+    role: The types.TextContent role.
 
   Returns:
     The litellm role.
@@ -464,7 +464,7 @@ def _message_to_generate_content_response(
         parts.append(part)
 
   return LlmResponse(
-      content=types.Content(role="model", parts=parts), partial=is_partial
+      content=types.TextContent(role="model", parts=parts), partial=is_partial
   )
 
 

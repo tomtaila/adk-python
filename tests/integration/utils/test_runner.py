@@ -67,7 +67,7 @@ class TestRunner:
         self.agent_client.run(
             user_id=current_session.user_id,
             session_id=current_session.id,
-            new_message=types.Content(
+            new_message=types.TextContent(
                 role="user",
                 parts=[types.Part.from_text(text=prompt)],
             ),

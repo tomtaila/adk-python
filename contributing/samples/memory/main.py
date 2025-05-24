@@ -37,7 +37,7 @@ async def main():
   )
 
   async def run_prompt(session: Session, new_message: str) -> Session:
-    content = types.Content(
+    content = types.TextContent(
         role='user', parts=[types.Part.from_text(text=new_message)]
     )
     print('** User says:', content.model_dump(exclude_none=True))

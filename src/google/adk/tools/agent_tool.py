@@ -107,7 +107,7 @@ class AgentTool(BaseTool):
             f'Input value {input_value} is not of type'
             f' `{self.agent.input_schema}`.'
         )
-      content = types.Content(
+      content = types.TextContent(
           role='user',
           parts=[
               types.Part.from_text(
@@ -116,7 +116,7 @@ class AgentTool(BaseTool):
           ],
       )
     else:
-      content = types.Content(
+      content = types.TextContent(
           role='user',
           parts=[types.Part.from_text(text=input_value)],
       )

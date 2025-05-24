@@ -41,7 +41,7 @@ import pytest
 
 LLM_REQUEST_WITH_FUNCTION_DECLARATION = LlmRequest(
     contents=[
-        types.Content(
+        types.TextContent(
             role="user", parts=[types.Part.from_text(text="Test prompt")]
         )
     ],
@@ -269,7 +269,7 @@ litellm_append_user_content_test_cases = [
     pytest.param(
         LlmRequest(
             contents=[
-                types.Content(
+                types.TextContent(
                     role="developer",
                     parts=[types.Part.from_text(text="Test prompt")],
                 )
@@ -281,7 +281,7 @@ litellm_append_user_content_test_cases = [
     pytest.param(
         LlmRequest(
             contents=[
-                types.Content(
+                types.TextContent(
                     role="user",
                     parts=[types.Part.from_text(text="user prompt")],
                 )
@@ -293,15 +293,15 @@ litellm_append_user_content_test_cases = [
     pytest.param(
         LlmRequest(
             contents=[
-                types.Content(
+                types.TextContent(
                     role="model",
                     parts=[types.Part.from_text(text="model prompt")],
                 ),
-                types.Content(
+                types.TextContent(
                     role="user",
                     parts=[types.Part.from_text(text="user prompt")],
                 ),
-                types.Content(
+                types.TextContent(
                     role="model",
                     parts=[types.Part.from_text(text="model prompt")],
                 ),
@@ -497,7 +497,7 @@ async def test_generate_content_async_with_system_instruction(
 
   llm_request = LlmRequest(
       contents=[
-          types.Content(
+          types.TextContent(
               role="user", parts=[types.Part.from_text(text="Test prompt")]
           )
       ],
@@ -539,10 +539,10 @@ async def test_generate_content_async_with_tool_response(
 
   llm_request = LlmRequest(
       contents=[
-          types.Content(
+          types.TextContent(
               role="user", parts=[types.Part.from_text(text="Test prompt")]
           ),
-          types.Content(
+          types.TextContent(
               role="tool",
               parts=[
                   types.Part.from_function_response(
@@ -625,7 +625,7 @@ async def test_generate_content_async_with_usage_metadata(
 
   llm_request = LlmRequest(
       contents=[
-          types.Content(
+          types.TextContent(
               role="user", parts=[types.Part.from_text(text="Test prompt")]
           ),
       ],
@@ -644,7 +644,7 @@ async def test_generate_content_async_with_usage_metadata(
 
 
 def test_content_to_message_param_user_message():
-  content = types.Content(
+  content = types.TextContent(
       role="user", parts=[types.Part.from_text(text="Test prompt")]
   )
   message = _content_to_message_param(content)
@@ -665,7 +665,7 @@ def test_content_to_message_param_multi_part_function_response():
   )
   part2.function_response.id = "tool_call_2"
 
-  content = types.Content(
+  content = types.TextContent(
       role="tool",
       parts=[part1, part2],
   )
@@ -683,7 +683,7 @@ def test_content_to_message_param_multi_part_function_response():
 
 
 def test_content_to_message_param_assistant_message():
-  content = types.Content(
+  content = types.TextContent(
       role="assistant", parts=[types.Part.from_text(text="Test response")]
   )
   message = _content_to_message_param(content)
@@ -692,7 +692,7 @@ def test_content_to_message_param_assistant_message():
 
 
 def test_content_to_message_param_function_call():
-  content = types.Content(
+  content = types.TextContent(
       role="assistant",
       parts=[
           types.Part.from_function_call(

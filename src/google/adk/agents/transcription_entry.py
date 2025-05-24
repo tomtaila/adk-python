@@ -33,5 +33,5 @@ class TranscriptionEntry(BaseModel):
   """The role that created this data, typically "user" or "model". For function 
   call, this is None."""
 
-  data: Union[types.Blob, types.Content]
+  data: Union[types.Blob, types.TextContent]
   """The data that can be used for transcription"""

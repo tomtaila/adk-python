@@ -34,7 +34,7 @@ class ReadonlyContext:
     self._invocation_context = invocation_context
 
   @property
-  def user_content(self) -> Optional[types.Content]:
+  def user_content(self) -> Optional[types.TextContent]:
     """The user content that started this invocation. READONLY field."""
     return self._invocation_context.user_content
 

@@ -60,7 +60,7 @@ async def run_input_file(
   )
   for query in input_file.queries:
     click.echo(f'[user]: {query}')
-    content = types.Content(role='user', parts=[types.Part(text=query)])
+    content = types.TextContent(role='user', parts=[types.Part(text=query)])
     async for event in runner.run_async(
         user_id=session.user_id, session_id=session.id, new_message=content
     ):
@@ -91,7 +91,7 @@ async def run_interactively(
     async for event in runner.run_async(
         user_id=session.user_id,
         session_id=session.id,
-        new_message=types.Content(role='user', parts=[types.Part(text=query)]),
+        new_message=types.TextContent(role='user', parts=[types.Part(text=query)]),
     ):
       if event.content and event.content.parts:
         if text := ''.join(part.text or '' for part in event.content.parts):

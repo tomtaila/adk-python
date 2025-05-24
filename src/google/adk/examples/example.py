@@ -24,5 +24,5 @@ class Example(BaseModel):
     output: The expected output content for the example.
   """
 
-  input: types.Content
-  output: list[types.Content]
+  input: types.TextContent
+  output: list[types.TextContent]

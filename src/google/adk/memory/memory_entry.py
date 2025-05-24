@@ -24,7 +24,7 @@ from pydantic import BaseModel
 class MemoryEntry(BaseModel):
   """Represent one memory entry."""
 
-  content: types.Content
+  content: types.TextContent
   """The main content of the memory."""
 
   author: Optional[str] = None

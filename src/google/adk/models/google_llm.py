@@ -208,7 +208,7 @@ class Gemini(BaseLlm):
       BaseLlmConnection, the connection to the Gemini model.
     """
 
-    llm_request.live_connect_config.system_instruction = types.Content(
+    llm_request.live_connect_config.system_instruction = types.TextContent(
         role='system',
         parts=[
             types.Part.from_text(text=llm_request.config.system_instruction)

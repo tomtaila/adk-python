@@ -144,7 +144,7 @@ async def test_session_state(service_type):
   event = Event(
       invocation_id='invocation',
       author='user',
-      content=types.Content(role='user', parts=[types.Part(text='text')]),
+      content=types.TextContent(role='user', parts=[types.Part(text='text')]),
       actions=EventActions(
           state_delta={
               'app:key': 'value',
@@ -207,7 +207,7 @@ async def test_create_new_session_will_merge_states(service_type):
   event = Event(
       invocation_id='invocation',
       author='user',
-      content=types.Content(role='user', parts=[types.Part(text='text')]),
+      content=types.TextContent(role='user', parts=[types.Part(text='text')]),
       actions=EventActions(
           state_delta={
               'app:key': 'value',
@@ -249,7 +249,7 @@ async def test_append_event_bytes(service_type):
   event = Event(
       invocation_id='invocation',
       author='user',
-      content=types.Content(
+      content=types.TextContent(
           role='user',
           parts=[
               types.Part.from_bytes(
@@ -289,7 +289,7 @@ async def test_append_event_complete(service_type):
   event = Event(
       invocation_id='invocation',
       author='user',
-      content=types.Content(role='user', parts=[types.Part(text='test_text')]),
+      content=types.TextContent(role='user', parts=[types.Part(text='test_text')]),
       turn_complete=True,
       partial=False,
       actions=EventActions(

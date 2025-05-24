@@ -91,7 +91,7 @@ class LangGraphAgent(BaseAgent):
         invocation_id=ctx.invocation_id,
         author=self.name,
         branch=ctx.branch,
-        content=types.Content(
+        content=types.TextContent(
             role='model',
             parts=[types.Part.from_text(text=result)],
         ),

@@ -49,7 +49,7 @@ class LlmResponse(BaseModel):
   )
   """The pydantic model config."""
 
-  content: Optional[types.Content] = None
+  content: Optional[types.TextContent] = None
   """The content of the response."""
 
   grounding_metadata: Optional[types.GroundingMetadata] = None

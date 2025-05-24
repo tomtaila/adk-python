@@ -129,7 +129,7 @@ def trace_call_llm(
 def trace_send_data(
     invocation_context: InvocationContext,
     event_id: str,
-    data: list[types.Content],
+    data: list[types.TextContent],
 ):
   """Traces the sending of data to the agent.
 
@@ -151,7 +151,7 @@ def trace_send_data(
   span.set_attribute(
       'gcp.vertex.agent.data',
       json.dumps([
-          types.Content(role=content.role, parts=content.parts).model_dump(
+          types.TextContent(role=content.role, parts=content.parts).model_dump(
               exclude_none=True
           )
           for content in data
@@ -184,7 +184,7 @@ def _build_llm_request_for_trace(llm_request: LlmRequest) -> dict[str, Any]:
   for content in llm_request.contents:
     parts = [part for part in content.parts if not part.inline_data]
     result['contents'].append(
-        types.Content(role=content.role, parts=parts).model_dump(
+        types.TextContent(role=content.role, parts=parts).model_dump(
             exclude_none=True
         )
     )

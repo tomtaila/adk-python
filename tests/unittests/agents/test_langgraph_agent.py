@@ -34,7 +34,7 @@ import pytest
                 Event(
                     invocation_id="test_invocation_id",
                     author="user",
-                    content=types.Content(
+                    content=types.TextContent(
                         role="user",
                         parts=[types.Part.from_text(text="test prompt")],
                     ),
@@ -42,7 +42,7 @@ import pytest
                 Event(
                     invocation_id="test_invocation_id",
                     author="root_agent",
-                    content=types.Content(
+                    content=types.TextContent(
                         role="model",
                         parts=[types.Part.from_text(text="(some delegation)")],
                     ),
@@ -59,7 +59,7 @@ import pytest
                 Event(
                     invocation_id="test_invocation_id",
                     author="user",
-                    content=types.Content(
+                    content=types.TextContent(
                         role="user",
                         parts=[types.Part.from_text(text="user prompt 1")],
                     ),
@@ -67,7 +67,7 @@ import pytest
                 Event(
                     invocation_id="test_invocation_id",
                     author="root_agent",
-                    content=types.Content(
+                    content=types.TextContent(
                         role="model",
                         parts=[
                             types.Part.from_text(text="root agent response")
@@ -77,7 +77,7 @@ import pytest
                 Event(
                     invocation_id="test_invocation_id",
                     author="weather_agent",
-                    content=types.Content(
+                    content=types.TextContent(
                         role="model",
                         parts=[
                             types.Part.from_text(text="weather agent response")
@@ -87,7 +87,7 @@ import pytest
                 Event(
                     invocation_id="test_invocation_id",
                     author="user",
-                    content=types.Content(
+                    content=types.TextContent(
                         role="user",
                         parts=[types.Part.from_text(text="user prompt 2")],
                     ),
@@ -106,7 +106,7 @@ import pytest
                 Event(
                     invocation_id="test_invocation_id",
                     author="user",
-                    content=types.Content(
+                    content=types.TextContent(
                         role="user",
                         parts=[types.Part.from_text(text="user prompt 1")],
                     ),
@@ -114,7 +114,7 @@ import pytest
                 Event(
                     invocation_id="test_invocation_id",
                     author="root_agent",
-                    content=types.Content(
+                    content=types.TextContent(
                         role="model",
                         parts=[
                             types.Part.from_text(text="root agent response")
@@ -124,7 +124,7 @@ import pytest
                 Event(
                     invocation_id="test_invocation_id",
                     author="weather_agent",
-                    content=types.Content(
+                    content=types.TextContent(
                         role="model",
                         parts=[
                             types.Part.from_text(text="weather agent response")
@@ -134,7 +134,7 @@ import pytest
                 Event(
                     invocation_id="test_invocation_id",
                     author="user",
-                    content=types.Content(
+                    content=types.TextContent(
                         role="user",
                         parts=[types.Part.from_text(text="user prompt 2")],
                     ),

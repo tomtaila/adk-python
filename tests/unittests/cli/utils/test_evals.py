@@ -34,7 +34,7 @@ def build_event(author: str, parts_content: list[dict]) -> Event:
       )
     # Add other part types here if needed for future tests
     parts.append(types.Part(**part_args))
-  return Event(author=author, content=types.Content(parts=parts))
+  return Event(author=author, content=types.TextContent(parts=parts))
 
 
 def test_convert_empty_session():
@@ -210,11 +210,11 @@ def test_convert_handles_missing_content_or_parts():
       Event(author="user", content=None),  # User event missing content
       build_event("user", [{"text": "Query 2"}]),
       Event(
-          author="agent", content=types.Content(parts=[])
+          author="agent", content=types.TextContent(parts=[])
       ),  # Agent event with empty parts list
       build_event("agent", [{"text": "Response 2"}]),
       # User event with content but no parts (or None parts)
-      Event(author="user", content=types.Content(parts=None)),
+      Event(author="user", content=types.TextContent(parts=None)),
       build_event("user", [{"text": "Query 3"}]),
       build_event("agent", [{"text": "Response 3"}]),
   ]
@@ -249,7 +249,7 @@ def test_convert_handles_missing_tool_name_or_args():
       # Event where FunctionCall has name=None
       Event(
           author="agent",
-          content=types.Content(
+          content=types.TextContent(
               parts=[
                   types.Part(
                       function_call=types.FunctionCall(name=None, args={"a": 1})
@@ -260,7 +260,7 @@ def test_convert_handles_missing_tool_name_or_args():
       # Event where FunctionCall has args=None
       Event(
           author="agent",
-          content=types.Content(
+          content=types.TextContent(
               parts=[
                   types.Part(
                       function_call=types.FunctionCall(name="tool_B", args=None)
@@ -272,7 +272,7 @@ def test_convert_handles_missing_tool_name_or_args():
       # (should skip)
       Event(
           author="agent",
-          content=types.Content(
+          content=types.TextContent(
               parts=[types.Part(function_call=None, text="some text")]
           ),
       ),
@@ -299,7 +299,7 @@ def test_convert_handles_missing_user_query_text():
   events = [
       # Event where user part has text=None
       Event(
-          author="user", content=types.Content(parts=[types.Part(text=None)])
+          author="user", content=types.TextContent(parts=[types.Part(text=None)])
       ),
       build_event("agent", [{"text": "Response 1"}]),
       # Event where user part has text=""

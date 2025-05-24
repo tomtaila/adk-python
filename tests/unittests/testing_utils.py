@@ -39,7 +39,7 @@ from google.genai.types import Part
 from typing_extensions import override
 
 
-class UserContent(types.Content):
+class UserContent(types.TextContent):
 
   def __init__(self, text_or_part: str):
     parts = [
@@ -50,7 +50,7 @@ class UserContent(types.Content):
     super().__init__(role='user', parts=parts)
 
 
-class ModelContent(types.Content):
+class ModelContent(types.TextContent):
 
   def __init__(self, parts: list[types.Part]):
     super().__init__(role='model', parts=parts)
@@ -70,7 +70,7 @@ async def create_invocation_context(agent: Agent, user_content: str = ''):
       session=await session_service.create_session(
           app_name='test_app', user_id='test_user'
       ),
-      user_content=types.Content(
+      user_content=types.TextContent(
           role='user', parts=[types.Part.from_text(text=user_content)]
       ),
       run_config=RunConfig(),
@@ -89,7 +89,7 @@ def append_user_content(
   event = Event(
       invocation_id=invocation_context.invocation_id,
       author='user',
-      content=types.Content(role='user', parts=parts),
+      content=types.TextContent(role='user', parts=parts),
   )
   session.events.append(event)
   return event
@@ -102,7 +102,7 @@ def simplify_events(events: list[Event]) -> list[(str, types.Part)]:
 
 
 # Simplifies the contents into a list of (author, simplified_content) tuples.
-def simplify_contents(contents: list[types.Content]) -> list[(str, types.Part)]:
+def simplify_contents(contents: list[types.TextContent]) -> list[(str, types.Part)]:
   return [(content.role, simplify_content(content)) for content in contents]
 
 
@@ -112,7 +112,7 @@ def simplify_contents(contents: list[types.Content]) -> list[(str, types.Part)]:
 # - If there are multiple parts, return parts
 # - remove function_call_id if it exists
 def simplify_content(
-    content: types.Content,
+    content: types.TextContent,
 ) -> Union[str, types.Part, list[types.Part]]:
   for part in content.parts:
     if part.function_call and part.function_call.id:
@@ -127,8 +127,8 @@ def simplify_content(
   return content.parts
 
 
-def get_user_content(message: types.ContentUnion) -> types.Content:
-  return message if isinstance(message, types.Content) else UserContent(message)
+def get_user_content(message: types.TextContentUnion) -> types.TextContent:
+  return message if isinstance(message, types.TextContent) else UserContent(message)
 
 
 class TestInMemoryRunner(AfInMemoryRunner):
@@ -138,7 +138,7 @@ class TestInMemoryRunner(AfInMemoryRunner):
   """
 
   async def run_async_with_new_session(
-      self, new_message: types.ContentUnion
+      self, new_message: types.TextContentUnion
   ) -> list[Event]:
 
     session = await self.session_service.create_session(
@@ -190,7 +190,7 @@ class InMemoryRunner:
         )
     )
 
-  def run(self, new_message: types.ContentUnion) -> list[Event]:
+  def run(self, new_message: types.TextContentUnion) -> list[Event]:
     return list(
         self.runner.run(
             user_id=self.session.user_id,
@@ -292,10 +292,10 @@ class MockLlmConnection(BaseLlmConnection):
   def __init__(self, llm_responses: list[LlmResponse]):
     self.llm_responses = llm_responses
 
-  async def send_history(self, history: list[types.Content]):
+  async def send_history(self, history: list[types.TextContent]):
     pass
 
-  async def send_content(self, content: types.Content):
+  async def send_content(self, content: types.TextContent):
     pass
 
   async def send(self, data):

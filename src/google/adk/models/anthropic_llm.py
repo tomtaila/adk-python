@@ -109,7 +109,7 @@ def part_to_message_block(
 
 
 def content_to_message_param(
-    content: types.Content,
+    content: types.TextContent,
 ) -> anthropic_types.MessageParam:
   return {
       "role": to_claude_role(content.role),
@@ -118,7 +118,7 @@ def content_to_message_param(
 
 
 def content_block_to_part(
-    content_block: anthropic_types.ContentBlock,
+    content_block: anthropic_types.TextContentBlock,
 ) -> types.Part:
   if isinstance(content_block, anthropic_types.TextBlock):
     return types.Part.from_text(text=content_block.text)
@@ -137,7 +137,7 @@ def message_to_generate_content_response(
 ) -> LlmResponse:
 
   return LlmResponse(
-      content=types.Content(
+      content=types.TextContent(
           role="model",
           parts=[content_block_to_part(cb) for cb in message.content],
       ),

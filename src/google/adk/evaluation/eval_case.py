@@ -55,10 +55,10 @@ class Invocation(EvalBaseModel):
   invocation_id: str = ''
   """Unique identifier for the invocation."""
 
-  user_content: genai_types.Content
+  user_content: genai_types.TextContent
   """Content provided by the user in this invocation."""
 
-  final_response: Optional[genai_types.Content] = None
+  final_response: Optional[genai_types.TextContent] = None
   """Final response from the agent."""
 
   intermediate_data: Optional[IntermediateData] = None

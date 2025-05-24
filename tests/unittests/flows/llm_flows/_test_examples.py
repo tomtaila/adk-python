@@ -48,12 +48,12 @@ async def test_no_examples():
 async def test_agent_examples():
   example_list = [
       Example(
-          input=types.Content(
+          input=types.TextContent(
               role="user",
               parts=[types.Part.from_text(text="test1")],
           ),
           output=[
-              types.Content(
+              types.TextContent(
                   role="model",
                   parts=[types.Part.from_text(text="response1")],
               ),
@@ -97,12 +97,12 @@ async def test_agent_base_example_provider():
       if query == "test":
         return [
             Example(
-                input=types.Content(
+                input=types.TextContent(
                     role="user",
                     parts=[types.Part.from_text(text="test")],
                 ),
                 output=[
-                    types.Content(
+                    types.TextContent(
                         role="model",
                         parts=[types.Part.from_text(text="response1")],
                     ),

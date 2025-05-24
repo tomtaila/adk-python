@@ -42,7 +42,7 @@ class LlmRequest(BaseModel):
   model: Optional[str] = None
   """The model name."""
 
-  contents: list[types.Content] = Field(default_factory=list)
+  contents: list[types.TextContent] = Field(default_factory=list)
   """The contents to send to the model."""
 
   config: Optional[types.GenerateContentConfig] = None

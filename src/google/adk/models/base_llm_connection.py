@@ -24,7 +24,7 @@ class BaseLlmConnection:
   """The base class for a live model connection."""
 
   @abstractmethod
-  async def send_history(self, history: list[types.Content]):
+  async def send_history(self, history: list[types.TextContent]):
     """Sends the conversation history to the model.
 
     You call this method right after setting up the model connection.
@@ -37,7 +37,7 @@ class BaseLlmConnection:
     pass
 
   @abstractmethod
-  async def send_content(self, content: types.Content):
+  async def send_content(self, content: types.TextContent):
     """Sends a user content to the model.
 
     The model will respond immediately upon receiving the content.

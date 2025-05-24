@@ -56,7 +56,7 @@ def populate_client_function_call_id(model_response_event: Event) -> None:
       function_call.id = generate_client_function_call_id()
 
 
-def remove_client_function_call_id(content: types.Content) -> None:
+def remove_client_function_call_id(content: types.TextContent) -> None:
   if content and content.parts:
     for part in content.parts:
       if (
@@ -116,7 +116,7 @@ def generate_auth_event(
       invocation_id=invocation_context.invocation_id,
       author=invocation_context.agent.name,
       branch=invocation_context.branch,
-      content=types.Content(
+      content=types.TextContent(
           parts=parts, role=function_response_event.content.role
       ),
       long_running_tool_ids=long_running_tool_ids,
@@ -344,7 +344,7 @@ async def _process_function_live_helper(
             tool_context=tool_context,
             invocation_context=invocation_context,
         ):
-          updated_content = types.Content(
+          updated_content = types.TextContent(
               role='user',
               parts=[
                   types.Part.from_text(
@@ -447,7 +447,7 @@ def __build_response_event(
     )
     part_function_response.function_response.id = tool_context.function_call_id
 
-    content = types.Content(
+    content = types.TextContent(
         role='user',
         parts=[part_function_response],
     )
@@ -500,7 +500,7 @@ def merge_parallel_function_response_events(
       invocation_id=Event.new_id(),
       author=base_event.author,
       branch=base_event.branch,
-      content=types.Content(role='user', parts=merged_parts),
+      content=types.TextContent(role='user', parts=merged_parts),
       actions=merged_actions,  # Optionally merge actions if required
   )
 

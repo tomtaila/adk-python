@@ -167,7 +167,7 @@ def convert_session_to_eval_invocations(session: Session) -> list[Invocation]:
                   tool_uses=tool_uses,
                   intermediate_responses=intermediate_responses[:-1],
               ),
-              final_response=genai_types.Content(
+              final_response=genai_types.TextContent(
                   parts=intermediate_responses[-1][1]
               ),
           )

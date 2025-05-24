@@ -212,7 +212,7 @@ async def _run_pre_processor(
       return
 
     # Emit the code to execute, and add it to the LLM request.
-    code_content = types.Content(
+    code_content = types.TextContent(
         role='model',
         parts=[
             types.Part(text=f'Processing input file: `{file.name}`'),
@@ -392,7 +392,7 @@ async def _post_process_code_execution_result(
   if invocation_context.artifact_service is None:
     raise ValueError('Artifact service is not initialized.')
 
-  result_content = types.Content(
+  result_content = types.TextContent(
       role='model',
       parts=[
           CodeExecutionUtils.build_code_execution_result_part(

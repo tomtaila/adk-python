@@ -326,7 +326,7 @@ def test_function_get_auth_response():
       1
   ].function_call.id
   runner.run(
-      new_message=types.Content(
+      new_message=types.TextContent(
           role='user',
           parts=[
               types.Part(function_response=function_response1),

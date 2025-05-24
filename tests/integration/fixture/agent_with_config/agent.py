@@ -15,7 +15,7 @@
 from google.adk import Agent
 from google.genai import types
 
-new_message = types.Content(
+new_message = types.TextContent(
     role="user",
     parts=[types.Part.from_text(text="Count a number")],
 )

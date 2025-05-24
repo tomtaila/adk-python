@@ -95,7 +95,7 @@ MOCK_SESSION = Session(
             invocation_id='123',
             author='user',
             timestamp=isoparse(MOCK_EVENT_JSON[0]['timestamp']).timestamp(),
-            content=types.Content(parts=[types.Part(text='test_content')]),
+            content=types.TextContent(parts=[types.Part(text='test_content')]),
             actions=EventActions(
                 transfer_to_agent='agent',
                 state_delta={'key': {'value': 'test_value'}},

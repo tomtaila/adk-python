@@ -43,7 +43,7 @@ tracer = trace.get_tracer('gcp.vertex.agent')
 
 _SingleAgentCallback: TypeAlias = Callable[
     [CallbackContext],
-    Union[Awaitable[Optional[types.Content]], Optional[types.Content]],
+    Union[Awaitable[Optional[types.TextContent]], Optional[types.TextContent]],
 ]
 
 BeforeAgentCallback: TypeAlias = Union[
@@ -102,7 +102,7 @@ class BaseAgent(BaseModel):
     callback_context: MUST be named 'callback_context' (enforced).
 
   Returns:
-    Optional[types.Content]: The content to return to the user.
+    Optional[types.TextContent]: The content to return to the user.
       When the content is present, the agent run will be skipped and the
       provided content will be returned to user.
   """
@@ -116,7 +116,7 @@ class BaseAgent(BaseModel):
     callback_context: MUST be named 'callback_context' (enforced).
 
   Returns:
-    Optional[types.Content]: The content to return to the user.
+    Optional[types.TextContent]: The content to return to the user.
       When the content is present, the provided content will be used as agent
       response and appended to event history as agent response.
   """

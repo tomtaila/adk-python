@@ -95,7 +95,7 @@ class ResponseEvaluator(Evaluator):
 
     return EvaluationResult()
 
-  def _get_text(self, content: Optional[genai_types.Content]) -> str:
+  def _get_text(self, content: Optional[genai_types.TextContent]) -> str:
     if content and content.parts:
       return "\n".join([p.text for p in content.parts if p.text])
 

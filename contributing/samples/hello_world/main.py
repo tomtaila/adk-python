@@ -39,7 +39,7 @@ async def main():
   )
 
   async def run_prompt(session: Session, new_message: str):
-    content = types.Content(
+    content = types.TextContent(
         role='user', parts=[types.Part.from_text(text=new_message)]
     )
     print('** User says:', content.model_dump(exclude_none=True))
@@ -52,7 +52,7 @@ async def main():
         print(f'** {event.author}: {event.content.parts[0].text}')
 
   async def run_prompt_bytes(session: Session, new_message: str):
-    content = types.Content(
+    content = types.TextContent(
         role='user',
         parts=[
             types.Part.from_bytes(

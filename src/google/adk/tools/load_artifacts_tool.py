@@ -98,7 +98,7 @@ class LoadArtifactsTool(BaseTool):
         for artifact_name in artifact_names:
           artifact = await tool_context.load_artifact(artifact_name)
           llm_request.contents.append(
-              types.Content(
+              types.TextContent(
                   role='user',
                   parts=[
                       types.Part.from_text(

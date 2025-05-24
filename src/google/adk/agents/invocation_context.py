@@ -129,7 +129,7 @@ class InvocationContext(BaseModel):
   """
   agent: BaseAgent
   """The current agent of this invocation context. Readonly."""
-  user_content: Optional[types.Content] = None
+  user_content: Optional[types.TextContent] = None
   """The user content that started this invocation. Readonly."""
   session: Session
   """The current session of this invocation context. Readonly."""

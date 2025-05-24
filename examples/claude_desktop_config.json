@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "google-adk": {
+      "command": "python",
+      "args": ["/path/to/google-adk-mcp-server/mcp_server.py"],
+      "env": {
+        "GOOGLE_APPLICATION_CREDENTIALS": "/path/to/your/service-account-key.json"
+      }
+    }
+  }
+} 

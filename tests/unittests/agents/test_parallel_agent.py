@@ -41,7 +41,7 @@ class _TestingAgent(BaseAgent):
         author=self.name,
         branch=ctx.branch,
         invocation_id=ctx.invocation_id,
-        content=types.Content(
+        content=types.TextContent(
             parts=[types.Part(text=f'Hello, async {self.name}!')]
         ),
     )

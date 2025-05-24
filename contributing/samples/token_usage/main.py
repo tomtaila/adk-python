@@ -54,7 +54,7 @@ async def main():
     nonlocal total_prompt_tokens
     nonlocal total_candidate_tokens
     nonlocal total_tokens
-    content = types.Content(
+    content = types.TextContent(
         role='user', parts=[types.Part.from_text(text=new_message)]
     )
     print('** User says:', content.model_dump(exclude_none=True))

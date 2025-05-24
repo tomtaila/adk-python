@@ -102,7 +102,7 @@ class Runner:
       *,
       user_id: str,
       session_id: str,
-      new_message: types.Content,
+      new_message: types.TextContent,
       run_config: RunConfig = RunConfig(),
   ) -> Generator[Event, None, None]:
     """Runs the agent.
@@ -157,7 +157,7 @@ class Runner:
       *,
       user_id: str,
       session_id: str,
-      new_message: types.Content,
+      new_message: types.TextContent,
       run_config: RunConfig = RunConfig(),
   ) -> AsyncGenerator[Event, None]:
     """Main entry method to run the agent in this runner.
@@ -202,7 +202,7 @@ class Runner:
   async def _append_new_message_to_session(
       self,
       session: Session,
-      new_message: types.Content,
+      new_message: types.TextContent,
       invocation_context: InvocationContext,
       save_input_blobs_as_artifacts: bool = False,
   ):
@@ -386,7 +386,7 @@ class Runner:
       self,
       session: Session,
       *,
-      new_message: Optional[types.Content] = None,
+      new_message: Optional[types.TextContent] = None,
       live_request_queue: Optional[LiveRequestQueue] = None,
       run_config: RunConfig = RunConfig(),
   ) -> InvocationContext:

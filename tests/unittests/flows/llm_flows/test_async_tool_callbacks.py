@@ -86,7 +86,7 @@ async def invoke_tool_with_callbacks(
   )
   # Build function call event
   function_call = types.FunctionCall(name=tool.name, args={})
-  content = types.Content(parts=[types.Part(function_call=function_call)])
+  content = types.TextContent(parts=[types.Part(function_call=function_call)])
   event = Event(
       invocation_id=invocation_context.invocation_id,
       author=agent.name,

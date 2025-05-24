@@ -109,7 +109,7 @@ class CodeExecutionUtils:
 
   @staticmethod
   def extract_code_and_truncate_content(
-      content: types.Content,
+      content: types.TextContent,
       code_block_delimiters: List[tuple[str, str]],
   ) -> Optional[str]:
     """Extracts the first code block from the content and truncate everything after it.
@@ -220,7 +220,7 @@ class CodeExecutionUtils:
 
   @staticmethod
   def convert_code_execution_parts(
-      content: types.Content,
+      content: types.TextContent,
       code_block_delimiter: tuple[str, str],
       execution_result_delimiters: tuple[str, str],
   ):

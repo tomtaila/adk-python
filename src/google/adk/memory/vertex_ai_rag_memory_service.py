@@ -144,7 +144,7 @@ class VertexAiRagMemoryService(BaseMemoryService):
             timestamp = float(event_data.get("timestamp", 0))
             text = event_data.get("text", "")
 
-            content = types.Content(parts=[types.Part(text=text)])
+            content = types.TextContent(parts=[types.Part(text=text)])
             event = Event(author=author, timestamp=timestamp, content=content)
             events.append(event)
           except json.JSONDecodeError:

@@ -32,7 +32,7 @@ def test_simple_function():
   function_respones_2 = types.Part.from_function_response(
       name='increase_by_one', response={'result': 2}
   )
-  responses: list[types.Content] = [
+  responses: list[types.TextContent] = [
       function_call_1,
       'response1',
       'response2',
@@ -88,7 +88,7 @@ async def test_async_function():
       ),
   ]
 
-  responses: list[types.Content] = [
+  responses: list[types.TextContent] = [
       function_calls,
       'response1',
       'response2',
@@ -159,7 +159,7 @@ async def test_function_tool():
       ),
   ]
 
-  responses: list[types.Content] = [
+  responses: list[types.TextContent] = [
       function_calls,
       'response1',
       'response2',

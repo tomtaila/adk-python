@@ -44,7 +44,7 @@ async def main():
   session_11 = await session_service.create_session(app_name, user_id_1)
 
   async def run_prompt(session: Session, new_message: str):
-    content = types.Content(
+    content = types.TextContent(
         role='user', parts=[types.Part.from_text(text=new_message)]
     )
     print('** User says:', content.model_dump(exclude_none=True))

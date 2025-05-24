@@ -154,7 +154,7 @@ class AgentRunRequest(common.BaseModel):
   app_name: str
   user_id: str
   session_id: str
-  new_message: types.Content
+  new_message: types.TextContent
   streaming: bool = False
 
 

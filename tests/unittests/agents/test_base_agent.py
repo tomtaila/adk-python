@@ -47,14 +47,14 @@ async def _async_before_agent_callback_noop(
 
 def _before_agent_callback_bypass_agent(
     callback_context: CallbackContext,
-) -> types.Content:
-  return types.Content(parts=[types.Part(text='agent run is bypassed.')])
+) -> types.TextContent:
+  return types.TextContent(parts=[types.Part(text='agent run is bypassed.')])
 
 
 async def _async_before_agent_callback_bypass_agent(
     callback_context: CallbackContext,
-) -> types.Content:
-  return types.Content(parts=[types.Part(text='agent run is bypassed.')])
+) -> types.TextContent:
+  return types.TextContent(parts=[types.Part(text='agent run is bypassed.')])
 
 
 def _after_agent_callback_noop(callback_context: CallbackContext) -> None:
@@ -69,16 +69,16 @@ async def _async_after_agent_callback_noop(
 
 def _after_agent_callback_append_agent_reply(
     callback_context: CallbackContext,
-) -> types.Content:
-  return types.Content(
+) -> types.TextContent:
+  return types.TextContent(
       parts=[types.Part(text='Agent reply from after agent callback.')]
   )
 
 
 async def _async_after_agent_callback_append_agent_reply(
     callback_context: CallbackContext,
-) -> types.Content:
-  return types.Content(
+) -> types.TextContent:
+  return types.TextContent(
       parts=[types.Part(text='Agent reply from after agent callback.')]
   )
 
@@ -97,7 +97,7 @@ class _TestingAgent(BaseAgent):
         author=self.name,
         branch=ctx.branch,
         invocation_id=ctx.invocation_id,
-        content=types.Content(parts=[types.Part(text='Hello, world!')]),
+        content=types.TextContent(parts=[types.Part(text='Hello, world!')]),
     )
 
   @override
@@ -108,7 +108,7 @@ class _TestingAgent(BaseAgent):
         author=self.name,
         invocation_id=ctx.invocation_id,
         branch=ctx.branch,
-        content=types.Content(parts=[types.Part(text='Hello, live!')]),
+        content=types.TextContent(parts=[types.Part(text='Hello, live!')]),
     )
 
 
@@ -166,7 +166,7 @@ async def test_run_async_with_branch(request: pytest.FixtureRequest):
 async def test_run_async_before_agent_callback_noop(
     request: pytest.FixtureRequest,
     mocker: pytest_mock.MockerFixture,
-) -> Union[types.Content, None]:
+) -> Union[types.TextContent, None]:
   # Arrange
   agent = _TestingAgent(
       name=f'{request.function.__name__}_test_agent',
@@ -194,7 +194,7 @@ async def test_run_async_before_agent_callback_noop(
 async def test_run_async_with_async_before_agent_callback_noop(
     request: pytest.FixtureRequest,
     mocker: pytest_mock.MockerFixture,
-) -> Union[types.Content, None]:
+) -> Union[types.TextContent, None]:
   # Arrange
   agent = _TestingAgent(
       name=f'{request.function.__name__}_test_agent',
@@ -282,7 +282,7 @@ async def mock_async_agent_cb_side_effect(
     ret_value=None,
 ):
   if ret_value:
-    return types.Content(parts=[types.Part(text=ret_value)])
+    return types.TextContent(parts=[types.Part(text=ret_value)])
   return None
 
 
@@ -291,7 +291,7 @@ def mock_sync_agent_cb_side_effect(
     ret_value=None,
 ):
   if ret_value:
-    return types.Content(parts=[types.Part(text=ret_value)])
+    return types.TextContent(parts=[types.Part(text=ret_value)])
   return None
 
 

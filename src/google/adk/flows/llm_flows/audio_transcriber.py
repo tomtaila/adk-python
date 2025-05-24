@@ -31,7 +31,7 @@ class AudioTranscriber:
 
   def transcribe_file(
       self, invocation_context: InvocationContext
-  ) -> list[genai_types.Content]:
+  ) -> list[genai_types.TextContent]:
     """Transcribe audio, bundling consecutive segments from the same speaker.
 
     The ordering of speakers will be preserved. Audio blobs will be merged for
@@ -57,7 +57,7 @@ class AudioTranscriber:
           transcription_entry.data,
       )
 
-      if isinstance(audio_data, genai_types.Content):
+      if isinstance(audio_data, genai_types.TextContent):
         if current_speaker is not None:
           bundled_audio.append((current_speaker, current_audio_data))
           current_speaker = None
@@ -101,7 +101,7 @@ class AudioTranscriber:
 
           parts = [genai_types.Part(text=transcript)]
           role = speaker.lower()
-          content = genai_types.Content(role=role, parts=parts)
+          content = genai_types.TextContent(role=role, parts=parts)
           contents.append(content)
       else:
         # don't need to transcribe model which are already text

@@ -24,8 +24,8 @@ from google.genai import types
 
 def before_agent_call_end_invocation(
     callback_context: CallbackContext,
-) -> types.Content:
-  return types.Content(
+) -> types.TextContent:
+  return types.TextContent(
       role='model',
       parts=[types.Part(text='End invocation event before agent call.')],
   )
@@ -33,8 +33,8 @@ def before_agent_call_end_invocation(
 
 def before_agent_call(
     invocation_context: InvocationContext,
-) -> types.Content:
-  return types.Content(
+) -> types.TextContent:
+  return types.TextContent(
       role='model',
       parts=[types.Part.from_text(text='Plain text event before agent call.')],
   )
@@ -44,7 +44,7 @@ def before_model_call_end_invocation(
     callback_context: CallbackContext, llm_request: LlmRequest
 ) -> LlmResponse:
   return LlmResponse(
-      content=types.Content(
+      content=types.TextContent(
           role='model',
           parts=[
               types.Part.from_text(
@@ -60,7 +60,7 @@ def before_model_call(
 ) -> LlmResponse:
   request.config.system_instruction = 'Just return 999 as response.'
   return LlmResponse(
-      content=types.Content(
+      content=types.TextContent(
           role='model',
           parts=[
               types.Part.from_text(

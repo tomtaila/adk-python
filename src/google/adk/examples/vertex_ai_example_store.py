@@ -85,12 +85,12 @@ class VertexAiExampleStore(BaseExampleProvider):
                 )
             )
         expected_output.append(
-            types.Content(role=content.role, parts=expected_parts)
+            types.TextContent(role=content.role, parts=expected_parts)
         )
 
       returned_examples.append(
           Example(
-              input=types.Content(
+              input=types.TextContent(
                   role="user",
                   parts=[
                       types.Part.from_text(

@@ -76,7 +76,7 @@ def book_hotel(hotel_name: str) -> str:
 
 def before_model_call(agent: Agent, session: Session, user_message):
   if 'expedia' in user_message.lower():
-    response = types.Content(
+    response = types.TextContent(
         role='model',
         parts=[types.Part(text="Sorry, I can't answer this question.")],
     )
@@ -85,11 +85,11 @@ def before_model_call(agent: Agent, session: Session, user_message):
 
 
 def after_model_call(
-    agent: Agent, session: Session, content: types.Content
+    agent: Agent, session: Session, content: types.TextContent
 ) -> bool:
   model_message = content.parts[0].text
   if 'expedia' in model_message.lower():
-    response = types.Content(
+    response = types.TextContent(
         role='model',
         parts=[types.Part(text="Sorry, I can't answer this question.")],
     )
@@ -142,12 +142,12 @@ root_agent = Agent(
     flow='auto',
     examples=[
         Example(
-            input=types.Content(
+            input=types.TextContent(
                 role='user',
                 parts=[types.Part(text='How were you built?')],
             ),
             output=[
-                types.Content(
+                types.TextContent(
                     role='model',
                     parts=[
                         types.Part(

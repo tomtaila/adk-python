@@ -26,7 +26,7 @@ class LiveRequest(BaseModel):
   model_config = ConfigDict(ser_json_bytes='base64', val_json_bytes='base64')
   """The pydantic model config."""
 
-  content: Optional[types.Content] = None
+  content: Optional[types.TextContent] = None
   """If set, send the content to the model in turn-by-turn mode."""
   blob: Optional[types.Blob] = None
   """If set, send the blob to the model in realtime mode."""
@@ -52,7 +52,7 @@ class LiveRequestQueue:
   def close(self):
     self._queue.put_nowait(LiveRequest(close=True))
 
-  def send_content(self, content: types.Content):
+  def send_content(self, content: types.TextContent):
     self._queue.put_nowait(LiveRequest(content=content))
 
   def send_realtime(self, blob: types.Blob):

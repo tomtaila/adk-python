@@ -30,7 +30,7 @@ class GeminiLlmConnection(BaseLlmConnection):
   def __init__(self, gemini_session: live.AsyncSession):
     self._gemini_session = gemini_session
 
-  async def send_history(self, history: list[types.Content]):
+  async def send_history(self, history: list[types.TextContent]):
     """Sends the conversation history to the gemini model.
 
     You call this method right after setting up the model connection.
@@ -61,7 +61,7 @@ class GeminiLlmConnection(BaseLlmConnection):
     else:
       logger.info('no content is sent')
 
-  async def send_content(self, content: types.Content):
+  async def send_content(self, content: types.TextContent):
     """Sends a user content to the gemini model.
 
     The model will respond immediately upon receiving the content.
@@ -115,7 +115,7 @@ class GeminiLlmConnection(BaseLlmConnection):
       An LlmResponse containing the full text.
     """
     return LlmResponse(
-        content=types.Content(
+        content=types.TextContent(
             role='model',
             parts=[types.Part.from_text(text=text)],
         ),
@@ -156,7 +156,7 @@ class GeminiLlmConnection(BaseLlmConnection):
               )
           ]
           llm_response = LlmResponse(
-              content=types.Content(role='user', parts=parts)
+              content=types.TextContent(role='user', parts=parts)
           )
           yield llm_response
         if (
@@ -177,7 +177,7 @@ class GeminiLlmConnection(BaseLlmConnection):
               )
           ]
           llm_response = LlmResponse(
-              content=types.Content(role='model', parts=parts), partial=True
+              content=types.TextContent(role='model', parts=parts), partial=True
           )
           yield llm_response
 
@@ -205,7 +205,7 @@ class GeminiLlmConnection(BaseLlmConnection):
             types.Part(function_call=function_call)
             for function_call in message.tool_call.function_calls
         ]
-        yield LlmResponse(content=types.Content(role='model', parts=parts))
+        yield LlmResponse(content=types.TextContent(role='model', parts=parts))
 
   async def close(self):
     """Closes the llm server connection."""

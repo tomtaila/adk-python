@@ -187,7 +187,7 @@ def _rearrange_events_for_latest_function_response(
 
 def _get_contents(
     current_branch: Optional[str], events: list[Event], agent_name: str = ''
-) -> list[types.Content]:
+) -> list[types.TextContent]:
   """Get the contents for the LLM request.
 
   Args:
@@ -264,7 +264,7 @@ def _convert_foreign_event(event: Event) -> Event:
   if not event.content or not event.content.parts:
     return event
 
-  content = types.Content()
+  content = types.TextContent()
   content.role = 'user'
   content.parts = [types.Part(text='For context:')]
   for part in event.content.parts:

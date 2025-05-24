@@ -62,10 +62,10 @@ def _convert_invocation_to_pydantic_schema(
 
   return Invocation(
       invocation_id=str(uuid.uuid4()),
-      user_content=genai_types.Content(
+      user_content=genai_types.TextContent(
           parts=[genai_types.Part.from_text(text=query)], role="user"
       ),
-      final_response=genai_types.Content(
+      final_response=genai_types.TextContent(
           parts=[genai_types.Part.from_text(text=reference)], role="model"
       ),
       intermediate_data=IntermediateData(

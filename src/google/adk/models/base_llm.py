@@ -60,7 +60,7 @@ class BaseLlm(BaseModel):
       stream: bool = False, whether to do streaming call.
 
     Yields:
-      a generator of types.Content.
+      a generator of types.TextContent.
 
       For non-streaming call, it will only yield one Content.
 
@@ -83,7 +83,7 @@ class BaseLlm(BaseModel):
     # using system instruction.
     if not llm_request.contents:
       llm_request.contents.append(
-          types.Content(
+          types.TextContent(
               role='user',
               parts=[
                   types.Part(
@@ -101,7 +101,7 @@ class BaseLlm(BaseModel):
     # model response.
     if llm_request.contents[-1].role != 'user':
       llm_request.contents.append(
-          types.Content(
+          types.TextContent(
               role='user',
               parts=[
                   types.Part(
