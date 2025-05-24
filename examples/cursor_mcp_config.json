@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "google-adk": {
+      "command": "python",
+      "args": ["/Users/tomtaila/Documents/Code/ai/mcp-servers/google-adk-mcp-server/mcp_server.py"],
+      "env": {
+        "GOOGLE_APPLICATION_CREDENTIALS": "/path/to/your/service-account-key.json",
+        "GOOGLE_CLOUD_PROJECT": "your-project-id",
+        "GOOGLE_CLOUD_LOCATION": "us-central1"
+      }
+    }
+  }
+} 
