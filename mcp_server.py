@@ -15,6 +15,13 @@ import sys
 from typing import Any, Dict, List, Optional, Union
 from pathlib import Path
 
+# Import version information
+try:
+    from version import __version__, get_version
+except ImportError:
+    __version__ = "1.0.0"
+    get_version = lambda: __version__
+
 # Check for required dependencies and provide helpful error messages
 try:
     # MCP imports
@@ -289,6 +296,15 @@ async def handle_list_tools() -> List[types.Tool]:
                 },
                 "required": ["topic"]
             }
+        ),
+        types.Tool(
+            name="get_server_version",
+            description="Get version information for the Google ADK MCP Server",
+            inputSchema={
+                "type": "object",
+                "properties": {},
+                "additionalProperties": False
+            }
         )
     ]
 
@@ -318,6 +334,8 @@ async def handle_call_tool(name: str, arguments: dict) -> List[types.TextContent
             return await load_webpage_content(**arguments)
         elif name == "get_adk_documentation":
             return await get_adk_documentation(**arguments)
+        elif name == "get_server_version":
+            return await get_server_version(**arguments)
         else:
             raise ValueError(f"Unknown tool: {name}")
     except Exception as e:
@@ -825,6 +843,43 @@ async def get_adk_documentation(topic: str) -> List[types.TextContent]:
     
     return [types.TextContent(type="text", text=json.dumps(result, indent=2))]
 
+async def get_server_version() -> List[types.TextContent]:
+    """Get version information for the Google ADK MCP Server."""
+    try:
+        from version import get_version_info
+        version_info = get_version_info()
+    except ImportError:
+        version_info = {
+            "major": 1,
+            "minor": 0,
+            "patch": 0
+        }
+    
+    result = {
+        "status": "success",
+        "server_name": "Google ADK MCP Server",
+        "version": __version__,
+        "version_info": version_info,
+        "mcp_protocol": "1.0",
+        "description": "MCP server exposing Google Agent Development Kit functionality",
+        "capabilities": [
+            "Agent creation and management",
+            "Multi-agent systems",
+            "Tool integration (Google Search, web scraping, MCP tools)",
+            "Agent evaluation",
+            "Session management",
+            "Real-time agent execution"
+        ],
+        "supported_models": [
+            "gemini-2.0-flash",
+            "gemini-1.5-pro", 
+            "gemini-1.5-flash"
+        ],
+        "documentation": "https://github.com/your-username/google-adk-mcp-server"
+    }
+    
+    return [types.TextContent(type="text", text=json.dumps(result, indent=2))]
+
 async def main():
     """Main function to run the MCP server."""
     async with mcp.server.stdio.stdio_server() as (read_stream, write_stream):
@@ -834,7 +889,7 @@ async def main():
             write_stream,
             InitializationOptions(
                 server_name="google-adk-mcp-server",
-                server_version="1.0.0",
+                server_version=__version__,
                 capabilities=server.get_capabilities(
                     notification_options=NotificationOptions(),
                     experimental_capabilities={}

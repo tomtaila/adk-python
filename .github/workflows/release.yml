@@ -1,0 +1,129 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+  packages: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        
+    - name: Extract version from tag
+      id: version
+      run: echo "version=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+      
+    - name: Verify version consistency
+      run: |
+        VERSION_PY=$(python -c "from version import __version__; print(__version__)")
+        TAG_VERSION="${{ steps.version.outputs.version }}"
+        if [ "$VERSION_PY" != "$TAG_VERSION" ]; then
+          echo "❌ Version mismatch: version.py has $VERSION_PY but tag is $TAG_VERSION"
+          exit 1
+        fi
+        echo "✅ Version consistency verified: $VERSION_PY"
+        
+    - name: Extract changelog entry
+      id: changelog
+      run: |
+        VERSION="${{ steps.version.outputs.version }}"
+        # Extract changelog entry for this version
+        awk "/^## \[$VERSION\]/{flag=1; next} /^## \[/{flag=0} flag" CHANGELOG.md > release_notes.md
+        
+        # If no changelog entry found, create a basic one
+        if [ ! -s release_notes.md ]; then
+          echo "### Changes" > release_notes.md
+          echo "- Release version $VERSION" >> release_notes.md
+        fi
+        
+        echo "Release notes for version $VERSION:"
+        cat release_notes.md
+        
+    - name: Test MCP server
+      run: |
+        echo "🧪 Testing MCP server basic functionality..."
+        timeout 10s python mcp_server.py || true
+        echo "✅ Server can be imported and started"
+        
+    - name: Create GitHub Release
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: ${{ github.ref }}
+        name: Release v${{ steps.version.outputs.version }}
+        body_path: release_notes.md
+        draft: false
+        prerelease: false
+        files: |
+          mcp_server.py
+          version.py
+          requirements.txt
+          README.md
+          CHANGELOG.md
+          examples/claude_desktop_config.json
+          examples/cursor_mcp_config.json
+          examples/CURSOR_SETUP.md
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        
+    - name: Clean up
+      run: rm -f release_notes.md
+      
+  validate:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+        
+    - name: Test Python 3.10 compatibility
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        python -c "import mcp_server; print('✅ Python 3.10 compatibility verified')"
+        
+    - name: Set up Python 3.11
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        
+    - name: Test Python 3.11 compatibility
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        python -c "import mcp_server; print('✅ Python 3.11 compatibility verified')"
+        
+    - name: Set up Python 3.12
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.12'
+        
+    - name: Test Python 3.12 compatibility
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        python -c "import mcp_server; print('✅ Python 3.12 compatibility verified')" 

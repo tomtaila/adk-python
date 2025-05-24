@@ -449,6 +449,10 @@ exec(open('mcp_server.py').read())
 
 This project is licensed under the Apache 2.0 License - see the [LICENSE](LICENSE) file for details.
 
+## 📝 Changelog
+
+See [CHANGELOG.md](CHANGELOG.md) for a detailed history of changes and version information.
+
 ## 🔗 Related Projects
 
 - [Google ADK Python](https://github.com/google/adk-python) - The core ADK library
